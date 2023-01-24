@@ -15,7 +15,7 @@ class KirishData {
         return ress.json();
       })
       .then(json => {
-        AsyncStorage.setItem('token', JSON.stringify(json.data.token.access));
+       AsyncStorage.setItem('token', JSON.stringify(json.data.token.access));
         return json;
       })
       .catch(err => {

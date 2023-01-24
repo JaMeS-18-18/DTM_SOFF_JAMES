@@ -17,7 +17,7 @@ import SendData from '../../Utils/SendData';
 import { ActivityIndicator } from 'react-native-paper';
 
 export default function TestniYakunlash(props) {
-
+console.log(props.route.params.Kvaqt);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [Loader, setLoader] = useState(false);

@@ -4,7 +4,6 @@ import {
   View,
   SafeAreaView,
   Image,
-  TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
 import StyleColor from '../../assets/styles/color';
@@ -25,6 +24,7 @@ export default function StartingPage() {
   AsyncStorage.getItem('one').then(val => {
     setApi1(val);
   });
+
   if (Token) {
     if (api || api1 == '123') {
       navigation.navigate('TabNavigator');

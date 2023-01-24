@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Component} from 'react';
+import React, {useEffect, useState, Component, useMemo} from 'react';
 import {
   ActivityIndicator,
   View,
@@ -29,6 +29,12 @@ const OfflineTest = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [AllAnswer, setAllAnswer] = useState([]);
+  const [time, setTime] = useState({
+    sekund: "00",
+    minute: "00",
+    startDisable: false,
+  })
+  const [KetganVaqt, setKetganVaqt] = useState(0)
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -89,10 +95,18 @@ const OfflineTest = props => {
       INCRans: Xson,
       TestName: props.route.params.title,
       Natija: quizs,
-      TestID: props.route.params.Id
+      TestID: props.route.params.Id,
+      Kvaqt: KetganVaqt
     });
   }
 
+
+  function ishladi(params) {
+    console.log(params);
+    setKetganVaqt(params)
+  }
+
+console.log('qale');
   return (
     // <View></View>
     <View style={styles.centeredView}>
@@ -197,6 +211,7 @@ const OfflineTest = props => {
                 color: 'black',
                 fontSize: 18,
               }}>
+                {/* <StopWatch  Send={(i) => ishladi(i)} /> */}
             </Text>
           </View>
           <TouchableOpacity
@@ -255,12 +270,11 @@ export default OfflineTest;
 //     };
 //   }
 //   componentWillUnmount() {
-//     // this.props.Send(this.state)
 //     clearInterval(this.state.timer);
 //   }
 
 //   componentDidMount() {
-//     let timer = setInterval(() => {
+//     let timer = useMemo(() => setInterval(() => {
 //       var num = (Number(this.state.seconds) + 1).toString(),
 //         count = this.state.minutes;
 
@@ -274,8 +288,9 @@ export default OfflineTest;
 //         seconds: num.length == 1 ? '0' + num : num,
 //       });
 
-//       AsyncStorage.setItem('Lalula', JSON.stringify(this.state));
-//     }, 1000);
+//       // AsyncStorage.setItem('Lalula', JSON.stringify(this.state));
+//     }, 1000)
+//     [this.props.Send(this.state)])
 //     this.setState({timer});
 
 //     this.setState({startDisable: true});

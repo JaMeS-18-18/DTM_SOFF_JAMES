@@ -54,7 +54,7 @@ export default function Profil() {
       setPic(img);
     });
     AsyncStorage.getItem('token').then(val => {
-      setTOken(val);
+      setTOken(JSON.parse(val));
     });
   }, []);
 
@@ -138,7 +138,7 @@ export default function Profil() {
 
 
       const formdata = new FormData()
-      formdata.append('file', {
+      formdata.append('avatar', {
         uri: Pic.uri,
         type: Pic.type,
         name: Pic.fileName
@@ -147,15 +147,16 @@ export default function Profil() {
     let ress = await SendImage.SendImage(formdata, TOken, number)
 
     console.log('====================================');
-      console.log(ress);
+    console.log(ress);
     console.log('====================================');
-      // navigation.navigate('TabNavigator')
-    }  
+    // navigation.navigate('TabNavigator')
+    } 
 
   return (
     <SafeAreaView style={styles.Container}>
       <Back />
       <StatusbarWhite />
+     
       <Modal
         animationType="slide"
         transparent={true}

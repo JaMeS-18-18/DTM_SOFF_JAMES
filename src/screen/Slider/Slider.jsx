@@ -50,6 +50,7 @@ const Swipmassiv = [
   //   TextParagrf:
   //     'Yuklab olingan barcha sinov va imtihon testlarini ishlay olish imkoniyati va o’z kutubxonangizdagi elektron kitoblardan foydalanish',
   // },
+  
 ];
 
 export default function Slider() {

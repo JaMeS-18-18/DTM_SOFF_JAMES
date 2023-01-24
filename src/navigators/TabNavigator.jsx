@@ -15,7 +15,8 @@ export default function TabNavigator() {
   const navigation = useNavigation();
 
   return (
-    <Tab.Navigator screenOptions={{
+    <Tab.Navigator  
+    screenOptions={{
       tabBarShowLabel:true,
       tabBarStyle: {
         backgroundColor: StyleColor.backgroundColorMain,
@@ -23,9 +24,7 @@ export default function TabNavigator() {
       },
       tabBarActiveBackgroundColor: StyleColor.GreenActivColor,
       tabBarActiveTintColor:"teal",
-          tabBarInactiveTintColor: "teal",
-
-      
+      tabBarInactiveTintColor: "teal",
     }}>
       <Tab.Screen name='Asosiy' component={Home}
         options={{
@@ -61,6 +60,7 @@ export default function TabNavigator() {
       />
 
       <Tab.Screen name='Sozlamalar' component={Settings}
+          
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
