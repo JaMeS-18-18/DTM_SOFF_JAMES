@@ -36,6 +36,10 @@ export default function Home() {
 
 
   useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
     onRefresh()
   }, [])
   
@@ -60,6 +64,9 @@ export default function Home() {
     setName(ism)
   });
 
+  function GetImg() {
+    
+  }
 
     const backAction = () => {
       Alert.alert("To'xtang !", "Siz ilovadan chiqmoqchimisiz", [
@@ -73,10 +80,7 @@ export default function Home() {
       return true;
     };
 
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
+    
 
   // const onPress = () => {
   //   setActive(true)
@@ -109,7 +113,7 @@ export default function Home() {
             </TouchableOpacity> */}
           <TouchableHighlight onPress={TabPress} style = {{ borderRadius:25}}>
             {
-              (Pic == null) ? <Image style={styles.imgStyle} resizeMode="cover" source={require("../../assets/images/Selfie.png")} /> : <Avatar.Image style={styles.ImageBox} size={50} source={{ uri: 'data:image/png;base64,' + Pic }}/>
+              (Pic == null) ? <Image style={styles.imgStyle} resizeMode="cover" source={require("../../assets/images/Selfie.png")} /> : <Avatar.Image style={styles.ImageBox} size={50} source={{ uri: Pic }}/>
             }
           </TouchableHighlight>
           </View>

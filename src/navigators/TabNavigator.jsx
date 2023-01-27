@@ -12,7 +12,6 @@ import Online_test from "../screen/Online_test/Online_test"
 
 export default function TabNavigator() {
   const Tab = createBottomTabNavigator();
-  const navigation = useNavigation();
 
   return (
     <Tab.Navigator  

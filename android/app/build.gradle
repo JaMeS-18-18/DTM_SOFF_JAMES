@@ -3,8 +3,8 @@ apply plugin: "com.android.application"
 import com.android.build.OutputFile
 // import org.apache.tools.ant.taskdefs.condition.Os
 
-/**
- * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
+
+/* * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
  * These basically call `react-native bundle` with the correct arguments during the Android build
  * cycle. By default, bundleDebugJsAndAssets is skipped, as in debug/dev mode we prefer to load the
@@ -68,7 +68,7 @@ import com.android.build.OutputFile
  *   // date; if you have any other folders that you want to ignore for performance reasons (gradle
  *   // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
  *   // for example, you might want to remove it from here.
- *   inputExcludes: ["android/**", "ios/**"],
+ *   inputExcludes: ["android/", "ios/"],
  *
  *   // override which node gets called and with what additional arguments
  *   nodeExecutableAndArgs: ["node"],
@@ -85,8 +85,8 @@ project.ext.react = [
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
-/**
- * Set this to true to create two separate APKs instead of one:
+
+ /* Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
  *   - An APK that only works on x86 devices
  * The advantage is the size of the APK is reduced by about 4MB.
@@ -95,26 +95,26 @@ apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
  */
 def enableSeparateBuildPerCPUArchitecture = false
 
-/**
- * Run Proguard to shrink the Java bytecode in release builds.
+
+ /* Run Proguard to shrink the Java bytecode in release builds.
  */
 def enableProguardInReleaseBuilds = false
 
-/**
- * The preferred build flavor of JavaScriptCore.
+
+ /* The preferred build flavor of JavaScriptCore.
  *
  * For example, to use the international variant, you can use:
- * `def jscFlavor = 'org.webkit:android-jsc-intl:+'`
+ * def jscFlavor = 'org.webkit:android-jsc-intl:+'
  *
  * The international variant includes ICU i18n library and necessary data
- * allowing to use e.g. `Date.toLocaleString` and `String.localeCompare` that
+ * allowing to use e.g. Date.toLocaleString and String.localeCompare that
  * give correct results when using with locales other than en-US.  Note that
  * this variant is about 6MiB larger per architecture than default.
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
-/**
- * Whether to enable the Hermes VM.
+
+ /* Whether to enable the Hermes VM.
  *
  * This should be set on project.ext.react and that value will be read here. If it is not set
  * on project.ext.react, JavaScript will not be compiled to Hermes Bytecode
@@ -123,8 +123,8 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 
-/**
- * Architectures to build native code for.
+
+ /* Architectures to build native code for.
  */
 def reactNativeArchitectures() {
     def value = project.getProperties().get("reactNativeArchitectures")
@@ -137,7 +137,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.softest"
+        applicationId "com.sofTest"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -187,7 +187,6 @@ android {
             // preBuild.dependsOn("generateCodegenArtifactsFromSchema")
             preDebugBuild.dependsOn(packageReactNdkDebugLibs)
             preReleaseBuild.dependsOn(packageReactNdkReleaseLibs)
-
             // Due to a bug inside AGP, we have to explicitly set a dependency
             // between configureCMakeDebug* tasks and the preBuild tasks.
             // This can be removed once this is solved: https://issuetracker.google.com/issues/207403732
@@ -290,7 +289,6 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
-
     if (enableHermes) {
         //noinspection GradleDynamicVersion
         implementation("com.facebook.react:hermes-engine:+") { // From node_modules
@@ -328,15 +326,12 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 
 def isNewArchitectureEnabled() {
     // To opt-in for the New Architecture, you can either:
-    // - Set `newArchEnabled` to true inside the `gradle.properties` file
-    // - Invoke gradle with `-newArchEnabled=true`
-    // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
+    // - Set newArchEnabled to true inside the gradle.properties file
+    // - Invoke gradle with -newArchEnabled=true
+    // - Set an environment variable ORG_GRADLE_PROJECT_newArchEnabled=true
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
     /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
 def enableProguardInReleaseBuilds = true
 }
-
-
-

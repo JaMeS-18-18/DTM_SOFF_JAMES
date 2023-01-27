@@ -18,8 +18,15 @@ export default function Fanlar() {
   const [IconName, setIconName] = useState("arrow-right");
   const navigation = useNavigation()
 
+  function handleBackButton() {
+    navigation.goBack();
+    return true;
+  }
+
 useEffect(() => {
+  const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
   GetSubject()
+    return () => backHandler.remove();
 }, [])
 
 

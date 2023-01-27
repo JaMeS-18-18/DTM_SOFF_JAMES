@@ -13,7 +13,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StyleColor from '../../assets/styles/color';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import KirishData from '../../Utils/KirishData';
 import StatusbarGreen from "../../components/StatusBar/StatusbarGreen"
 import RegistrHedercard from '../../components/Card/RegistrHedercard';
@@ -74,6 +74,7 @@ const Login = () => {
       phone: Phone,
       password: password,
     });
+
 
     if (login.data) {
       let tokens = ''
@@ -141,6 +142,15 @@ const Login = () => {
       await AsyncStorage.setItem('Ishlandi', JSON.stringify(curMass));
       await AsyncStorage.setItem('UserName', login.data.full_name);
       await AsyncStorage.setItem('Phone', login.data.phone);
+      if (login.data.image_url != null) {
+        await AsyncStorage.setItem('Rasm', login.data.image_url);
+      }
+      navigation.dispatch(
+        CommonActions.reset({
+         index: 0,
+         routes: [{ name: 'Asosiy' }],
+       })
+     );
       navigation.navigate('TabNavigator');
     } else {
       setLoad(false)

@@ -1,4 +1,4 @@
-package com.softest;
+package com.sofTest;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

@@ -42,10 +42,7 @@ export default function Settings() {
   }
 
   const LogOut = () => {
-    AsyncStorage.removeItem("oka")
-    AsyncStorage.removeItem("UserName")
-    AsyncStorage.removeItem("Phone")
-    AsyncStorage.removeItem("Rasm")
+    AsyncStorage.clear()
     navigation.navigate("Welcome")
   }
   

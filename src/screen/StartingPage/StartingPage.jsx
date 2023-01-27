@@ -51,7 +51,7 @@ export default function StartingPage() {
         }}>
         <Image
           style={{width: '100%', height: '100%', resizeMode: 'contain'}}
-          source={require('../../assets/images/logo11222.png')}
+          source={require('../../assets/images/Logos.png')}
         />
       </View>
       <Text style={styles.SubTitle}>Oliy o’quv yurtiga tayyorlanish</Text>

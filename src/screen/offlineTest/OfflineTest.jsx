@@ -37,6 +37,7 @@ const OfflineTest = props => {
   const [KetganVaqt, setKetganVaqt] = useState(0)
   const navigation = useNavigation();
 
+  
   useEffect(() => {
     quiz();
   }, []);
@@ -257,55 +258,6 @@ console.log('qale');
 };
 
 export default OfflineTest;
-
-// export class StopWatch extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       timer: null,
-//       minutes: '00',
-//       seconds: '00',
-//       startDisable: false,
-//     };
-//   }
-//   componentWillUnmount() {
-//     clearInterval(this.state.timer);
-//   }
-
-//   componentDidMount() {
-//     let timer = useMemo(() => setInterval(() => {
-//       var num = (Number(this.state.seconds) + 1).toString(),
-//         count = this.state.minutes;
-
-//       if (Number(this.state.seconds) == 59) {
-//         count = (Number(this.state.minutes) + 1).toString();
-//         num = '00';
-//       }
-
-//       this.setState({
-//         minutes: count.length == 1 ? '0' + count : count,
-//         seconds: num.length == 1 ? '0' + num : num,
-//       });
-
-//       // AsyncStorage.setItem('Lalula', JSON.stringify(this.state));
-//     }, 1000)
-//     [this.props.Send(this.state)])
-//     this.setState({timer});
-
-//     this.setState({startDisable: true});
-//   }
-
-//   render() {
-//     return (
-//       <View>
-//         <Text style={{fontSize: 18, fontWeight: '700', color: '#00000095'}}>
-//           {this.state.minutes} : {this.state.seconds}
-//         </Text>
-//       </View>
-//     );
-//   }
-// }
 
 const styles = StyleSheet.create({
   container: {

@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   Modal,
   Image,
-  Linking
+  Linking,
+  ActivityIndicator
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import StyleColor from '../../assets/styles/color';
@@ -36,9 +37,10 @@ export default function Profil() {
   const [text, onChangeText] = useState([]);
   const [number, onChangeNumber] = useState(0);
   const [oldNum, setOldNum] = useState(0);
-  const [Pic, setPic] = useState({});
+  const [Pic, setPic] = useState('');
+  const [Pic2, setPic2] = useState({});
   const [TOken, setTOken] = useState();
-  const [Rasm, setRasm] = useState(false);
+  const [Rasm, setRasm] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -55,6 +57,9 @@ export default function Profil() {
     });
     AsyncStorage.getItem('token').then(val => {
       setTOken(JSON.parse(val));
+    });
+    AsyncStorage.getItem('Rasm').then(val => {
+     setPic(val)
     });
   }, []);
 
@@ -81,54 +86,57 @@ export default function Profil() {
       } else if (response.assets[0].fileSize > 2097152) {
         Alert.alert('Rasm hajmi 2mb dan kop bolmasligi kerak');
       } else {
-        setPic(response.assets[0]);
-        setRasm(true);
+        setPic('data:image/png;base64,' + response.assets[0].base64);
+        setPic2(response.assets[0])
       }
     });
   };
 
   const Save = async () => {
-    UpdateProfile.updateProfile({
-      name: text,
-      u_phone: number,
-      token: TOken,
-      oldNumber: oldNum,
-    });
- // const optionalConfigObject = {
-    //   title: 'Tasdiqlash majburiy', // Android
-    //   imageColor: 'teal', // Android
-    //   imageErrorColor: '#ff0000', // Android
-    //   sensorDescription: 'Barmoq izi', // Android
-    //   sensorErrorDescription: 'Xato', // Android
-    //   cancelText: '', // Android
-    //   fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
-    //   unifiedErrors: true, // use unified error messages (default false)
-    //   passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
-    // };
+    // UpdateProfile.updateProfile({
+    //   name: text,
+    //   u_phone: number,
+    //   token: TOken,
+    //   oldNumber: oldNum,
+    // });
+//  const optionalConfigObject = {
+//       title: 'Tasdiqlash majburiy', // Android
+//       imageColor: 'teal', // Android
+//       imageErrorColor: '#ff0000', // Android
+//       sensorDescription: 'Barmoq izi', // Android
+//       sensorErrorDescription: 'Xato', // Android
+//       cancelText: '', // Android
+//       fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
+//       unifiedErrors: true, // use unified error messages (default false)
+//       passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
+//     };
 
-    // let Touch = await TouchID.authenticate(
-    //   "O'zgarishlarni saqlash uchun Barmoq izini Tasdiqlang",
-    //   optionalConfigObject,
-    // )
-    //   .then(success => {
-    //     return success;
-    //   })
-    //   .catch(error => {
-    //     // return error
-    //     alert('Barmoq izi xato');
-    //   });
+//     let Touch = await TouchID.authenticate(
+//       "O'zgarishlarni saqlash uchun Barmoq izini Tasdiqlang",
+//       optionalConfigObject,
+//     )
+//       .then(success => {
+//         return success;
+//       })
+//       .catch(error => {
+//         // return error
+//         alert('Barmoq izi xato');
+//       });
 
-    // if (Touch == true) {
-    // }
+//     if (Touch == true) {
+//     }
 
  
-    await AsyncStorage.setItem('Rasm', Pic.base64);
+    await AsyncStorage.setItem('Rasm', Pic);
     await AsyncStorage.setItem('UserName', text);
     await AsyncStorage.setItem('Phone', number);
     setModalVisible(!modalVisible);
   };
 
     const reset = async () => {
+      setRasm(false);
+
+
        navigation.dispatch(
          CommonActions.reset({
           index: 0,
@@ -139,9 +147,9 @@ export default function Profil() {
 
       const formdata = new FormData()
       formdata.append('avatar', {
-        uri: Pic.uri,
-        type: Pic.type,
-        name: Pic.fileName
+        uri: Pic2.uri,
+        type: Pic2.type,
+        name: Pic2.fileName
       })
 
     let ress = await SendImage.SendImage(formdata, TOken, number)
@@ -149,7 +157,7 @@ export default function Profil() {
     console.log('====================================');
     console.log(ress);
     console.log('====================================');
-    // navigation.navigate('TabNavigator')
+    navigation.navigate('TabNavigator')
     } 
 
   return (
@@ -180,7 +188,10 @@ export default function Profil() {
                 <TouchableOpacity
                   onPress={reset}
                   style={styles.buttonClose2}>
-                  <Text style={styles.textStyle1}>OK</Text>
+                    {
+                      Rasm ?  <Text style={styles.textStyle1}>OK </Text> :  <ActivityIndicator size="small" color="teal" />
+                    }
+                
                 </TouchableOpacity>
               </View>
             </View>
@@ -199,7 +210,7 @@ export default function Profil() {
             <Avatar.Image
               style={styles.ImageBox}
               size={150}
-              source={{ uri: 'data:image/png;base64,' + Pic?.base64}}
+              source={{ uri: Pic }}
             />
           </TouchableHighlight>
           <View>
