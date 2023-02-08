@@ -24,7 +24,7 @@ class Competition {
     }
 
     async Competitionparticipants() {
-        let endPoint = `participants`;
+        let endPoint = 'participant';
         let response = await fetch(`${BaseUrl2}/${endPoint}/`, {
             method: 'GET',
             headers: {
@@ -45,7 +45,7 @@ class Competition {
     }
 
     async Musobaqalar() {
-        let endPoint = 'list';
+        let endPoint = 'last-objs';
         let response = await fetch(`${BaseUrl2}/${endPoint}/`, {
             method: 'GET',
             headers: {

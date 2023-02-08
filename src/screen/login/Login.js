@@ -142,6 +142,7 @@ const Login = () => {
       await AsyncStorage.setItem('Ishlandi', JSON.stringify(curMass));
       await AsyncStorage.setItem('UserName', login.data.full_name);
       await AsyncStorage.setItem('Phone', login.data.phone);
+      await AsyncStorage.setItem('UserID', JSON.stringify(login.data.id));
       if (login.data.image_url != null) {
         await AsyncStorage.setItem('Rasm', login.data.image_url);
       }

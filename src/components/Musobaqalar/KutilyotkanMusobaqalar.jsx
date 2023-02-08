@@ -47,11 +47,12 @@ export default function KutilyotkanMusobaqalar() {
     const funksiya = async () => {
       const KutilayotganTestlar = await CompitetionData.Musobaqalar()
       setMusobaqa(KutilayotganTestlar)
-      if (Musobaqa.length > 0) {
-        const unixTimeZero = Date.parse(KutilayotganTestlar[0].date_created);
-        const date = new Date(unixTimeZero)
-        const year = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDay()
-        const hour = date.getHours() + ":" + date.getMinutes()
+      if (KutilayotganTestlar.length > 0) {
+        console.log(KutilayotganTestlar[1]);
+        const unixTimeZero =  Date.parse(KutilayotganTestlar[0].date_created);
+        const date =  new Date(unixTimeZero)
+        const year =  date.getFullYear() + "/" + date.getMonth() + "/" + date.getDay()
+        const hour =  date.getHours() + ":" + date.getMinutes()
         setMonth(year)
         setTime(hour)        
       }
@@ -66,6 +67,9 @@ export default function KutilyotkanMusobaqalar() {
       <View style={styles.TextHeder} >
         <Text style={styles.textHead} >
           Kelayotgan musoboqalar
+        </Text>
+        <Text style={{color: StyleColor.GreenColor, fontWeight:"500", fontSize:16}}>
+          Barchasi
         </Text>
 
       </View>
@@ -141,8 +145,11 @@ const styles = StyleSheet.create({
   },
   TextHeder: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 20
+    justifyContent: "space-around",
+    alignItems:"center",
+    width: "100%",
+    // backgroundColor:"red"
+    // paddingHorizontal: 20
   },
   raceCard: {
     marginTop: 10,
@@ -173,9 +180,9 @@ const styles = StyleSheet.create({
   textHead: {
     fontWeight: "800",
     fontSize: 18,
-    color: StyleColor.GreenColor,
-    textAlign: "center",
-    width: "100%"
+    color: "black",
+    // textAlign: "center",
+    // width: "100%"
   },
   textHeadActive: {
     fontWeight: "500",
