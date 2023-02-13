@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Component, useMemo} from 'react';
+import React, {useEffect, useState, Component, useMemo, useCallback} from 'react';
 import {
   ActivityIndicator,
   View,
@@ -12,6 +12,7 @@ import {
   Alert,
   BackHandler,
   Dimensions,
+  useColorScheme,
 } from 'react-native';
 import {Modal} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,6 +21,7 @@ import OffTest from '../../Utils/offlineQuiz';
 import StyleColor from '../../assets/styles/color';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Sekundamer from '../../components/Sekundamer/Sekundamer';
 
 const OfflineTest = props => {
 
@@ -29,15 +31,15 @@ const OfflineTest = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [AllAnswer, setAllAnswer] = useState([]);
-  const [time, setTime] = useState({
-    sekund: "00",
-    minute: "00",
-    startDisable: false,
-  })
+  // const [time, setTime] = useState({
+  //   sekund: "00",
+  //   minute: "00",
+  //   startDisable: false,
+  // })
   const [KetganVaqt, setKetganVaqt] = useState(0)
   const navigation = useNavigation();
 
-  
+  console.log("salom");
   useEffect(() => {
     quiz();
   }, []);
@@ -57,6 +59,9 @@ const OfflineTest = props => {
     setSavollar(result.question_category);
   }
 
+
+
+
   async function ansverrun(params) {
     let mass = [...AllAnswer];
     if (mass.length > 0) {
@@ -73,6 +78,7 @@ const OfflineTest = props => {
       setAllAnswer(mass);
     }
   }
+   let s = 0
 
   async function Checked() {
     setModalVisible2(!modalVisible2);
@@ -97,15 +103,23 @@ const OfflineTest = props => {
       TestName: props.route.params.title,
       Natija: quizs,
       TestID: props.route.params.Id,
-      Kvaqt: KetganVaqt
+      Kvaqt: s
     });
   }
 
 
-  function ishladi(params) {
-    console.log(params);
-    setKetganVaqt(params)
+  // function ishladi(params) {
+  //   console.log(params);
+  // }
+
+
+  function TimerAdd(t) {
+    console.log("vaqt keldi",t);
+    s = t
+    // setKetganVaqt(t)
+    
   }
+
 
 console.log('qale');
   return (
@@ -213,6 +227,7 @@ console.log('qale');
                 fontSize: 18,
               }}>
                 {/* <StopWatch  Send={(i) => ishladi(i)} /> */}
+                <Sekundamer  SekundAdd = {(t) => TimerAdd(t)}/>
             </Text>
           </View>
           <TouchableOpacity

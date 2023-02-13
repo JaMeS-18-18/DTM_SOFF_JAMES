@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {SafeAreaView, View, StyleSheet, Text , Dimensions} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import offlineQuiz from '../../Utils/offlineQuiz';
@@ -120,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuizCard;
+export default (QuizCard);

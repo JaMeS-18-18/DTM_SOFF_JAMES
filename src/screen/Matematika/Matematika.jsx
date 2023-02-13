@@ -10,13 +10,13 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import StyleColor from '../../assets/styles/color';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 import StatusbarWhite from '../../components/StatusBar/StatusbarWhite';
 import offlineQuiz from '../../Utils/offlineQuiz';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import PageNameCard from '../../components/Card/PageNameCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
@@ -29,7 +29,6 @@ export default function Matematika(props) {
   const [SavolID, setSavolID] = useState(
     props.route.params.title.children[0].id,
   );
-  const [Data, setData] = useState([]);
   const [Ishlangan, setIshlangan] = useState([]);
   const [IconName, setIconName] = useState('arrow-right');
   const navigation = useNavigation();
@@ -39,13 +38,7 @@ export default function Matematika(props) {
   }, []);
 
   async function run() {
-    await AsyncStorage.getItem('Finish').then(data => {
-      let item = JSON.parse(data);
-      if (item != null) {
-        setData(item);
-      }
-      // setIconName("check-circle")
-    });
+
 
     await AsyncStorage.getItem('Ishlandi').then(data => {
       let item = JSON.parse(data);
@@ -62,7 +55,7 @@ export default function Matematika(props) {
 
 
 
-    
+
 
     if (Ishlangan.length > 0) {
       let aaa = Ishlangan.some(el => el.TestID == id);
@@ -75,15 +68,16 @@ export default function Matematika(props) {
               CRans: element.CRans,
               INCRans: element.INCRans,
               TestName: element.TestName,
-              Answers: element.Natija
+              Answers: element.Natija,
+              Kvaqt: element.vaqt
             })
           }
         })
-      }else{
-          navigation.navigate('Boshlash', { title: props, Id: id });
+      } else {
+        navigation.navigate('Boshlash', { title: props, Id: id });
       }
 
-    }else{
+    } else {
       navigation.navigate('Boshlash', { title: props, Id: id });
     }
 
@@ -115,18 +109,19 @@ export default function Matematika(props) {
               Ishlangan.map(element => {
                 if (element.TestID == item.id) {
                   item.IconName = 'check-circle';
+                  item.Second = element.vaqt
                 }
               });
             return (
               <TouchableOpacity onPress={() => GOQuiz(item.title, item.id, index)} key={index}>
                 <View style={styles.card}>
-                  <View style={{flexDirection: 'row'}}>
+                  <View style={{ flexDirection: 'row' }}>
                     <Feather
                       size={20}
                       name={'edit'}
-                      style={{marginHorizontal: 10, marginVertical: 2}}
+                      style={{ marginHorizontal: 10, marginVertical: 2 }}
                     />
-                    <Text style={{color: 'black', fontSize: 18}}>
+                    <Text style={{ color: 'black', fontSize: 18 }}>
                       {item.title}
                     </Text>
                   </View>
@@ -135,9 +130,14 @@ export default function Matematika(props) {
                       width: 80,
                       flexDirection: 'row',
                       justifyContent: 'space-between',
+                      alignItems:"center"
                     }}>
-                    <Text style={{fontSize: 15, color: '#111111'}}>
-                      {item.Second ? item.Minute + ' : ' + item.Second : ''}
+                    <Text style={{ fontSize: 15, color: '#111111', }}>
+                      {item.Second ? <View style={{ display: "flex", flexDirection: "row", justifyContent: "center"}}>
+                        <Text style={{fontWeight: "700"}}>{item.Second / 60 < 1 ? "00" : Math.round(item.Second / 60) < 10 ? "0" + Math.round(item.Second / 60) : Math.round(item.Second / 60)}</Text>
+                        <Text style={{fontWeight: "700"}}>:</Text>
+                        <Text style={{fontWeight: "700"}}>{Math.round(item.Second % 60) < 10 ? "0" + Math.round(item.Second % 60) : Math.round(item.Second % 60)}</Text>
+                      </View> : ''}
                     </Text>
                     <FontAwesome5
                       color={StyleColor.GreenColor}
@@ -151,7 +151,7 @@ export default function Matematika(props) {
           }) : <View style={[styles.container, styles.horizontal]}>
             <ActivityIndicator size="large" color="teal" />
           </View>
-        } 
+        }
       </ScrollView>
     </View>
   );

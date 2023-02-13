@@ -17,7 +17,7 @@ import SendData from '../../Utils/SendData';
 import { ActivityIndicator } from 'react-native-paper';
 
 export default function TestniYakunlash(props) {
-console.log(props.route.params.Kvaqt);
+  console.log("keldkeldi", props.route.params.Kvaqt);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [Loader, setLoader] = useState(false);
@@ -32,14 +32,15 @@ console.log(props.route.params.Kvaqt);
   ]);
 
   const [Ishlanganlar, setIshlanganlar] = useState(
-      {
-        soni: props.route.params.soni,
-        CRans: props.route.params.CRans,
-        INCRans: props.route.params.INCRans,
-        TestName: props.route.params.TestName,
-        Natija: props.route.params.Natija,
-        TestID: props.route.params.TestID
-      },
+    {
+      soni: props.route.params.soni,
+      CRans: props.route.params.CRans,
+      INCRans: props.route.params.INCRans,
+      TestName: props.route.params.TestName,
+      Natija: props.route.params.Natija,
+      TestID: props.route.params.TestID,
+      vaqt: props.route.params.Kvaqt,
+    },
   )
 
 
@@ -56,7 +57,7 @@ console.log(props.route.params.Kvaqt);
     setPostMass(currMass)
   }
 
-  
+
 
   const [persent, setpersent] = useState(
     parseInt((props.route.params.CRans / props.route.params.soni) * 100),
@@ -73,15 +74,15 @@ console.log(props.route.params.Kvaqt);
 
   getToken()
 
- async function getToken() {
-   await AsyncStorage.getItem("token").then(val => {
-     token = JSON.parse(val)
+  async function getToken() {
+    await AsyncStorage.getItem("token").then(val => {
+      token = JSON.parse(val)
     });
   }
- 
 
- async function Holatlar() {
-   
+
+  async function Holatlar() {
+
 
     if (persent < 55) {
       setHolat('Qoniqarsiz');
@@ -101,7 +102,7 @@ console.log(props.route.params.Kvaqt);
     navigation.navigate('Natijanikorish', { value: props.route.params.Natija });
   }
 
- 
+
 
 
 
@@ -165,7 +166,7 @@ console.log(props.route.params.Kvaqt);
                       );
                     } else {
                       let mass = [...data];
-                        mass.push(Ishlanganlar)
+                      mass.push(Ishlanganlar)
                       await AsyncStorage.setItem(
                         'Ishlandi',
                         JSON.stringify(mass),
@@ -176,11 +177,11 @@ console.log(props.route.params.Kvaqt);
 
                     let PostWork = await SendData.UserData({
                       category: Number(props.route.params.TestID),
-                      duration: "0",
+                      duration: props.route.params.Kvaqt,
                       answers_album: PostMass
                     }, token)
 
-
+                    console.log(PostWork)
 
 
 
@@ -212,7 +213,7 @@ console.log(props.route.params.Kvaqt);
 
                     navigation.navigate('TabNavigator');
                   }}>
-                  <Text style={styles.textStyle1}>{Loader ?  <ActivityIndicator size="small" color="teal" /> : "Ok"}</Text>
+                  <Text style={styles.textStyle1}>{Loader ? <ActivityIndicator size="small" color="teal" /> : "Ok"}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -250,6 +251,16 @@ console.log(props.route.params.Kvaqt);
                   natija={props.route.params.soni}
                   title="Umumiy savollar soni:"
                 />
+                <View style={styles.card}>
+                  <View>
+                    <Text>Sarflangan Vaqt:</Text>
+                  </View>
+                  <View style={{ display: "flex", flexDirection: "row" }}>
+                    <Text style={{ color: "purple", fontWeight: "700" }}>{props.route.params.Kvaqt / 60 < 1 ? "00" : Math.round(props.route.params.Kvaqt / 60) < 10 ? "0" + Math.round(props.route.params.Kvaqt / 60) : Math.round(props.route.params.Kvaqt / 60)}</Text>
+                    <Text style={{ color: "purple", fontWeight: "700" }}>:</Text>
+                    <Text style={{ color: "purple", fontWeight: "700" }}>{Math.round(props.route.params.Kvaqt % 60) < 10 ? "0" + Math.round(props.route.params.Kvaqt % 60) : Math.round(props.route.params.Kvaqt % 60)}</Text>
+                  </View>
+                </View>
               </View>
               <View style={{ marginBottom: 10 }}>
                 <Text

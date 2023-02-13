@@ -91,7 +91,8 @@ const Login = () => {
       CRans: 0,
       INCRans:0,
       TestID: 0,
-      Natija: []
+      Natija: [],
+      vaqt: 0
      }
       let result = {  
         UserAns: '',
@@ -104,6 +105,9 @@ const Login = () => {
       if (data.length > 0) {
         await data.map((variant, index) => {
           Object.TestID = variant.category
+          Object.vaqt = variant.duration
+          console.log("sdfg");
+          console.log(variant.duration);
 
           variant.answers_album.map((element, index) => {
             result.UserAns = element.user_answer
@@ -128,13 +132,9 @@ const Login = () => {
             CRans: 0,
             INCRans: 0,
             TestID: 0,
-            Natija: []
+            Natija: [],
+            vaqt: 0
           }
-
-           AsyncStorage.setItem('Finish', JSON.stringify([{
-            vaqt: "",
-            Id: variant.category
-          }]));
         })
       }
       setErr(false)
