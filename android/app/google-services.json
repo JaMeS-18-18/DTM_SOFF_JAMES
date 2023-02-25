@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "849480843060",
+    "project_id": "soff-test",
+    "storage_bucket": "soff-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849480843060:android:6ff9a00d032529dae92f61",
+        "android_client_info": {
+          "package_name": "com.sofTest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849480843060-g0tsuh8vocdtki36k16nete321ot59s7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZc1R6p1iLQzNGw5Fn-8EbPy6o9abmyoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849480843060-g0tsuh8vocdtki36k16nete321ot59s7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
